@@ -21,9 +21,9 @@
         class QuadraticHashTable
         {
           public:
-            explicit QuadraticHashTable( const HashedObj & notFound, int size = 101 );
+            explicit QuadraticHashTable( int size = 101 );
             QuadraticHashTable( const QuadraticHashTable & rhs )
-              : array( rhs.array), ITEM_NOT_FOUND( rhs.ITEM_NOT_FOUND ),
+              : array( rhs.array),
                 currentSize( rhs.currentSize ) { }
 
             const HashedObj & find( const HashedObj & x ) const;
@@ -41,18 +41,16 @@
                 HashedObj element;
                 EntryType info;
 
-                HashEntry( const HashedObj & e = HashedObj( ), EntryType i = EMPTY )
-                  : element( e ), info( i ) { }
+	      HashEntry( const HashedObj & e = HashedObj( ), EntryType i = EMPTY )                  : element( e ), info( i ) { }
             };
 
             vector<HashEntry> array;
             int currentSize;
-            const HashedObj ITEM_NOT_FOUND;
             bool isPrime( int n ) const;
             int nextPrime( int n ) const;
             bool isActive( int currentPos ) const;
             int findPos( const HashedObj & x ) const;
-            int hash( const string & key, int tableSize ) const;
+            int hash( const HashedObj & x, int tableSize ) const;
             int hash( int key, int tableSize ) const;
             void rehash( );
         };

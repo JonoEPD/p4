@@ -41,8 +41,8 @@
          * Construct the hash table.
          */
         template <class HashedObj>
-        QuadraticHashTable<HashedObj>::QuadraticHashTable( const HashedObj & notFound, int size )
-          : array( nextPrime( size ) ), ITEM_NOT_FOUND( notFound )
+        QuadraticHashTable<HashedObj>::QuadraticHashTable( int size )
+          : array( nextPrime( size ) )
         {
             makeEmpty( );
         }
@@ -126,7 +126,7 @@
         const HashedObj & QuadraticHashTable<HashedObj>::find( const HashedObj & x ) const
         {
             int currentPos = findPos( x );
-            return isActive( currentPos ) ? array[ currentPos ].element : ITEM_NOT_FOUND;
+            return isActive( currentPos ) ? array[ currentPos ].element : NULL;
         }
 
         /**
@@ -169,12 +169,12 @@
          * A hash routine for string objects.
          */
         template <class HashedObj>
-        int QuadraticHashTable<HashedObj>::hash( const string & key, int tableSize ) const
+        int QuadraticHashTable<HashedObj>::hash( const HashedObj & x, int tableSize ) const
         {
             int hashVal = 0;
 
-            for( int i = 0; i < key.length( ); i++ )
-                hashVal = 37 * hashVal + key[ i ];
+            for( int i = 0; i < 40; i++ ) //n_max arbitrary
+                hashVal = 37 * hashVal + x->name[ i ];
 
             hashVal %= tableSize;
             if( hashVal < 0 )

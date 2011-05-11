@@ -3,13 +3,28 @@
 #include "royals.h"
 #include "RunRoyals.h"
 #include <iostream>
+#include "QuadraticProbing.h"
+#include <cstring>
 
 using namespace std;
 
+Royal::Royal()
+{
+  name[0] = '\0'; //null string
+}
+
+Royal::Royal(const Person x)
+{
+  strcpy(name,x.name);
+}
+
 Royals::Royals(const Person *people, int count)
 {
-  for(int i = 0; i < 20; i++)
-    cout << people[i].name << endl;
+  QuadraticHashTable <Royal *> hashTable( count*2 );
+  for(int i = 0; i < count; i++)
+    {
+      hashTable.insert(new Royal(people[i]));
+    }
 }  // Royals()
 
 

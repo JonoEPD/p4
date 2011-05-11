@@ -4,6 +4,15 @@
 #define	ROYALS_H
 #include "RunRoyals.h"
 
+using namespace std;
+
+class Royal {
+ public:
+  Royal();
+  Royal(Person);
+  char name[100];
+};
+
 class Royals {
 public:
   Royals(const Person *people, int count);
