@@ -99,6 +99,25 @@ int Royals::getChildren(const char *name, int birthYear)
 void Royals::getDescendent(const char *ancestorName, int ancestorBirthYear,
     const char **descendentName, int *descendentBirthYear)
 {
+  int pos = hashTable.findPos(ancestorName,ancestorBirthYear);
+  Royal * a = hashTable.array[pos].element; 
+  int n_c = a->n_child;
+  if(n_c == 0) //no more descendents
+    {
+      	  if(*descendentBirthYear < a->birthYear || *descendentBirthYear == 0)
+	    {
+	      *descendentBirthYear = a->birthYear;
+	      *descendentName = a->name;
+	    }
+    }
+  else//more descendents
+    {
+      for(int i = 0; i < n_c; i++)
+	{
+	  getDescendent(a->children[i]->name,a->children[i]->birthYear,descendentName,descendentBirthYear);
+	}
+    }
+  
 } //getDescedent()
 
 
