@@ -82,7 +82,7 @@ void readFiles(const char *filename, Person **people, Question **questions,
         strcpy((*questions)[i].name2, strtok(NULL, ",") );
         (*questions)[i].answerBirthYear = atoi(strtok(NULL, ","));
         strcpy((*questions)[i].answerName, strtok(NULL, ",") );
-        break;
+      break;
     } // switch
 
   }
@@ -139,7 +139,7 @@ int main(int argc, char** argv)
           cout << "Question #" << i << " your answer: " << name << ' '
             << birthYear  << " correct: " << questions[i].answerName
             << ' ' << questions[i].answerBirthYear << endl;
-        break;
+        break;/*
       case 'a':
         royals->getAncestor(questions[i].name, questions[i].birthYear,
           questions[i].name2, questions[i].birthYear2,  &name, &birthYear);
@@ -149,7 +149,7 @@ int main(int argc, char** argv)
           cout << "Question #" << i << " your answer: " << name << ' '
             << birthYear  << " correct: " << questions[i].answerName
             << ' ' << questions[i].answerBirthYear << endl;
-	break;
+	    break;*/
     } // switch
 
   } // for each question
