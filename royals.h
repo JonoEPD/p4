@@ -14,13 +14,17 @@ class Royal {
   char name[100];
   int birthYear;
   int spouseCount;
+  int n_child;
+  Royal* children[24];
+  int n_parent;
+  Royal* parents[2];
 };
 
 class Royals {
 public:
   Royals(const Person *people, int count);
   QuadraticHashTable <Royal *> hashTable;
-  void insertDriver(const Person*, int&, int);
+  void insertDriver(const Person*, const Person*, int&, int);
   void getAncestor(const char *descendentName1, int descendentBirthYear1,
     const char *descendentName2, int descendentBirthYear2,
     const char **ancestorName, int *ancestorBirthYear);
