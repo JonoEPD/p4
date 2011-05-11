@@ -20,6 +20,7 @@ class Royals {
 public:
   Royals(const Person *people, int count);
   QuadraticHashTable <Royal *> hashTable;
+  void insertDriver(const Person*, int&, int);
   void getAncestor(const char *descendentName1, int descendentBirthYear1,
     const char *descendentName2, int descendentBirthYear2,
     const char **ancestorName, int *ancestorBirthYear);

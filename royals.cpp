@@ -22,15 +22,33 @@ Royal::Royal(const Person &x)
 
 Royals::Royals(const Person *people, int count) : hashTable(count*2)
 {
-  for(int i = 0; i < count; i++)
-    {
-      hashTable.insert(new Royal(people[i]));
-    }
-  for(int i = 0; i < count; i++)
-    {
-     
-    }
+  int i = 0;
+  insertDriver(people,i,count);
 }  // Royals()
+
+void Royals::insertDriver(const Person *people, int &i, int count)
+{
+  Person root = people[i]; //root to recurse from
+  bool exit = 0;
+  while(!exit && i < count)
+    {
+      int length_i = strlen(people[i].ID);
+      int length_r = strlen(root.ID);
+      if(length_i > length_r) //new root
+	{
+	  insertDriver(people, i, count);
+	}
+      else if(length_i == length_r) //equal -- siblings with root
+	{
+	  hashTable.insert(new Royal(people[i]));
+	  i++;
+	}
+      else //less, recurse back
+	{
+	  exit = 1;
+	}
+    }
+}
 
 
 void Royals::getAncestor(const char *descendentName1, int descendentBirthYear1,
