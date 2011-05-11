@@ -124,6 +124,7 @@ int main(int argc, char** argv)
           cout << "Question #" << i << " your answer: " << answer 
               << " correct: " << questions[i].answer << endl;
         break;
+	/*
       case 's':
         answer = royals->getSiblings(questions[i].name, questions[i].birthYear);
         if(answer != questions[i].answer)
@@ -148,7 +149,8 @@ int main(int argc, char** argv)
           cout << "Question #" << i << " your answer: " << name << ' '
             << birthYear  << " correct: " << questions[i].answerName
             << ' ' << questions[i].answerBirthYear << endl;
-        break;
+	*/  default:
+      break;
     } // switch
 
   } // for each question

@@ -99,5 +99,45 @@ int Royals::getMarriages(const char *name, int birthYear)
 
 int Royals::getSiblings(const char *name, int birthYear)
 {
-  return 0;
+  //siblings ordered by bday
+  int pos = hashTable.findPos(name, birthYear);
+  Royal * c = hashTable.array[pos].element;
+
+  if(c->n_parent == 0) //root monarch
+    return 0;
+  else if(c->n_parent == 1)
+    {
+      return (c->parents[0]->n_child - 1);
+    }
+  else //n_parent == 2 
+    {
+      Royal *p1 = c->parents[0];
+      Royal *p2 = c->parents[1];
+      int n1 = p1->n_child;
+      int n2 = p2->n_child;
+      int i=0,j=0;
+      int doubles = 0;
+      while(i != n1 && j != n2)
+	{
+	  if(p1->children[i] == p2->children[j])
+	    {
+	      doubles++;
+	      i++;
+	      j++;
+	    }
+	  else //!=
+	    {
+	      if(p1->children[i]->birthYear <= p2->children[j]->birthYear)
+		{
+		  i++;
+		}
+	      else // n1 > n2
+		{
+		  j++;
+		}
+	    }
+	}
+      return (n1+n2-doubles-1); //subtract doubles, you aren't a sibling
+    }
+
 } // getSiblings()
