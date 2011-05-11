@@ -2,9 +2,14 @@
 
 #include "royals.h"
 #include "RunRoyals.h"
+#include <iostream>
+
+using namespace std;
 
 Royals::Royals(const Person *people, int count)
 {
+  for(int i = 0; i < 20; i++)
+    cout << people[i].name << endl;
 }  // Royals()
 
 
