@@ -16,6 +16,7 @@ Royal::Royal()
 Royal::Royal(const Person &x)
 {
   strcpy(name,x.name);
+  birthYear = x.birthYear;
   spouseCount = x.spouseCount;
 }
 
@@ -54,7 +55,7 @@ void Royals::getDescendent(const char *ancestorName, int ancestorBirthYear,
 
 int Royals::getMarriages(const char *name, int birthYear)
 {
-  int tmp = hashTable.findPos(name)-1; //no idea why +1
+  int tmp = hashTable.findPos(name, birthYear); //no idea why +1
   return hashTable.array[tmp].element->spouseCount;
 } // getSiblings()
 

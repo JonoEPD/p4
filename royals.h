@@ -12,6 +12,7 @@ class Royal {
   Royal();
   Royal(const Person &);
   char name[100];
+  int birthYear;
   int spouseCount;
 };
 
