@@ -3,19 +3,22 @@
 #ifndef ROYALS_H
 #define	ROYALS_H
 #include "RunRoyals.h"
+#include "QuadraticProbing.h"
 
 using namespace std;
 
 class Royal {
  public:
   Royal();
-  Royal(Person);
+  Royal(const Person &);
   char name[100];
+  int spouseCount;
 };
 
 class Royals {
 public:
   Royals(const Person *people, int count);
+  QuadraticHashTable <Royal *> hashTable;
   void getAncestor(const char *descendentName1, int descendentBirthYear1,
     const char *descendentName2, int descendentBirthYear2,
     const char **ancestorName, int *ancestorBirthYear);

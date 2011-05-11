@@ -55,7 +55,7 @@
         void QuadraticHashTable<HashedObj>::insert( const HashedObj & x )
         {
                 // Insert x as active
-            int currentPos = findPos( x );
+            int currentPos = findPos( x->name );
             if( isActive( currentPos ) )
                 return;
             array[ currentPos ] = HashEntry( x, ACTIVE );
@@ -90,13 +90,13 @@
          * Return the position where the search for x terminates.
          */
         template <class HashedObj>
-        int QuadraticHashTable<HashedObj>::findPos( const HashedObj & x ) const
+        int QuadraticHashTable<HashedObj>::findPos( const char * x ) const
         {
 /* 1*/      int collisionNum = 0;
 /* 2*/      int currentPos = hash( x, array.size( ) );
 
 /* 3*/      while( array[ currentPos ].info != EMPTY &&
-                   array[ currentPos ].element != x )
+                   array[ currentPos ].element->name != x )
             {
 /* 4*/          currentPos += 2 * ++collisionNum - 1;  // Compute ith probe
 /* 5*/          if( currentPos >= array.size( ) )
@@ -125,7 +125,7 @@
         template <class HashedObj>
         const HashedObj & QuadraticHashTable<HashedObj>::find( const HashedObj & x ) const
         {
-            int currentPos = findPos( x );
+            int currentPos = findPos( x->name );
             return isActive( currentPos ) ? array[ currentPos ].element : NULL;
         }
 
@@ -169,12 +169,12 @@
          * A hash routine for string objects.
          */
         template <class HashedObj>
-        int QuadraticHashTable<HashedObj>::hash( const HashedObj & x, int tableSize ) const
+        int QuadraticHashTable<HashedObj>::hash( const char * x, int tableSize ) const
         {
             int hashVal = 0;
 
             for( int i = 0; i < 40; i++ ) //n_max arbitrary
-                hashVal = 37 * hashVal + x->name[ i ];
+                hashVal = 37 * hashVal + x[i];
 
             hashVal %= tableSize;
             if( hashVal < 0 )

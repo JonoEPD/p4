@@ -35,7 +35,7 @@
             const QuadraticHashTable & operator=( const QuadraticHashTable & rhs );
 
             enum EntryType { ACTIVE, EMPTY, DELETED };
-          private:
+          
             struct HashEntry
             {
                 HashedObj element;
@@ -49,8 +49,8 @@
             bool isPrime( int n ) const;
             int nextPrime( int n ) const;
             bool isActive( int currentPos ) const;
-            int findPos( const HashedObj & x ) const;
-            int hash( const HashedObj & x, int tableSize ) const;
+            int findPos( const char * ) const;
+            int hash( const char *, int tableSize ) const;
             int hash( int key, int tableSize ) const;
             void rehash( );
         };
