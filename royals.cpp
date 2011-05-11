@@ -47,15 +47,27 @@ void Royals::insertDriver(const Person *people, const Person *parent, int &i, in
 	}
       else if(length_i == length_r) //siblings or equal root
 	{
-	  if(hashTable.array[hashTable.findPos(people[i].name,people[i].birthYear)].info == 1) //not duplicate, EMPTY == 1
-	{
+	  
+	  if(hashTable.array[hashTable.findPos(people[i].name,people[i].birthYear)].info == 1) //not duplicate (EMPTY == 1)
+	    {
 	      hashTable.insert(new Royal(people[i]));
 	      Royal * child = hashTable.array[hashTable.findPos(people[i].name,people[i].birthYear)].element;
-	      if(r_parent != NULL) //if r_parent exists
+	      if(r_parent != NULL) //if not root
 		{
 		  r_parent->children[r_parent->n_child] = child;
 		  r_parent->n_child++;
-		  child->parents[child->n_parent] = r_parent;
+		  child->parents[0] = r_parent; //parents = 0 if empty
+		  child->n_parent++;
+		}
+	    }
+	  else //parents > 0
+	    {
+	      Royal * child = hashTable.array[hashTable.findPos(people[i].name,people[i].birthYear)].element;
+	      if((child->parents[0] != r_parent) && (child->n_parent != 2)) //not duplicate
+		{
+		  r_parent->children[r_parent->n_child] = child;
+		  r_parent->n_child++;
+		  child->parents[1] = r_parent;
 		  child->n_parent++;
 		}
 	    }
