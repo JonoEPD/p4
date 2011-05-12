@@ -15,7 +15,7 @@ Royal::Royal()
 
 Royal::Royal(const Person &x)
 {
-  strcpy(name,x.name);
+  strncpy(name,x.name,100);
   birthYear = x.birthYear;
   spouseCount = x.spouseCount;
   n_child = 0;
@@ -36,18 +36,17 @@ void Royals::insertDriver(const Person *people, const Person *parent, int &i, in
       r_parent = hashTable.array[hashTable.findPos(parent->name,parent->birthYear)].element;
     }
   Person root = people[i]; //root to recurse from
-  bool exit = 0;
-  while(!exit && i < count)
+  bool quit = 0;
+  while(!quit && i < count)
     {
       int length_i = strlen(people[i].ID);
       int length_r = strlen(root.ID);
-      if(length_i > length_r) //new root
+      if((length_i-1) > length_r) //new root (-1 in case 9->10)
 	{
 	  insertDriver(people, &people[i-1], i, count); //people[i-1] is parent
 	}
-      else if(length_i == length_r) //siblings or equal root
-	{
-	  
+      else if(length_i >= length_r) //siblings or equal root
+	{	  
 	  if(hashTable.array[hashTable.findPos(people[i].name,people[i].birthYear)].info == 1) //not duplicate (EMPTY == 1)
 	    {
 	      hashTable.insert(new Royal(people[i]));
@@ -75,7 +74,7 @@ void Royals::insertDriver(const Person *people, const Person *parent, int &i, in
 	}
       else //less, recurse back
 	{
-	  exit = 1;
+	  quit = 1;
 	}
     }
 }

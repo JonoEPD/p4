@@ -174,7 +174,7 @@
         {
 	  int hashVal = hash(birthYear, tableSize);
 
-            for( int i = 0; i < 10; i++ ) //n_max arbitrary
+            for( int i = 0; i < 9; i++ ) //n_max arbitrary
                 hashVal = 37 * hashVal + x[i];
 
             hashVal %= tableSize;
