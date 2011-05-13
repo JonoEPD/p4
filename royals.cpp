@@ -11,7 +11,7 @@ using namespace std;
 Royal::Royal()
 {
   name[0] = '\0';
-  birthYear = 0;
+  birthYear = -1;
 }
 
 Royal::Royal(const Person &x)
@@ -103,26 +103,30 @@ void Royals::getDescendent(const char *ancestorName, int ancestorBirthYear,
   Royal * a = hashTable.array[pos_a].element;
   int n_c = a->n_child;
   *descendentBirthYear = 0; //zero out
-  
-  for(int i = 0; i < n_c; i++) // we always have descendents
+  if(n_c == 0)
     {
-      getDescendentDriver(a->children[i],descendentName,descendentBirthYear);
+      *descendentName = a->name;
+      *descendentBirthYear = a->birthYear;
     }
-   
+  else
+    {
+      for(int i = 0; i < n_c; i++) // we always have descendents
+	{
+	  getDescendentDriver(a->children[i],descendentName,descendentBirthYear);
+	}
+    }
 } //getDescedent()
 
 void Royals::getDescendentDriver(Royal * ancestor, const char ** descendentName, int * descendentBirthYear)
 {
   int n_c = ancestor->n_child;
-  if(n_c == 0)
+  if(ancestor->birthYear > *descendentBirthYear)
     {
-      if(ancestor->birthYear > *descendentBirthYear)
-	{
-	  *descendentName = ancestor->name;
-	  *descendentBirthYear = ancestor->birthYear;
-	}
+      *descendentName = ancestor->name;
+      *descendentBirthYear = ancestor->birthYear;
     }
-  else
+
+  if(n_c != 0)
     {
       for(int i = 0; i < n_c; i++) // more descendents to check
 	{
