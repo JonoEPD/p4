@@ -124,14 +124,14 @@ int main(int argc, char** argv)
         if(answer != questions[i].answer)
           cout << "Question #" << i << " your answer: " << answer 
               << " correct: " << questions[i].answer << endl;
-        break; 
-	/*		
+        break; 		
       case 's':
         answer = royals->getSiblings(questions[i].name, questions[i].birthYear);
         if(answer != questions[i].answer)
           cout << "Question #" << i << " your answer: " << answer 
               << " correct: " << questions[i].answer << endl;
         break;
+	/*
       case 'd':
         royals->getDescendent(questions[i].name, questions[i].birthYear,
               &name, &birthYear);
