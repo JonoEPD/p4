@@ -131,7 +131,6 @@ int main(int argc, char** argv)
           cout << "Question #" << i << " your answer: " << answer 
               << " correct: " << questions[i].answer << endl;
         break;
-	/*
       case 'd':
         royals->getDescendent(questions[i].name, questions[i].birthYear,
               &name, &birthYear);
@@ -140,7 +139,7 @@ int main(int argc, char** argv)
           cout << "Question #" << i << " your answer: " << name << ' '
             << birthYear  << " correct: " << questions[i].answerName
             << ' ' << questions[i].answerBirthYear << endl;
-        break;
+        break;/*
       case 'a':
         royals->getAncestor(questions[i].name, questions[i].birthYear,
           questions[i].name2, questions[i].birthYear2,  &name, &birthYear);
