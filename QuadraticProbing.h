@@ -49,7 +49,6 @@
             int findPos( const char *, int birthYear ) const;
 	    int findObject( const char *, int birthYear ) const;
             int hash( const char *, int birthYear, int tableSize ) const;
-            void rehash( );
         };
 
         #include "QuadraticProbing.cpp"

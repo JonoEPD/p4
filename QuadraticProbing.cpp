@@ -59,31 +59,7 @@
 	  if( array[ currentPos ].info == ACTIVE )
 	    return;
 	  array[ currentPos ] = HashEntry( x, ACTIVE );
-	  
-	  // Rehash; see Section 5.5
-	  if( ++currentSize > array.size( ) / 2 )
-	    rehash( );
-        }
-
-        /**
-         * Expand the hash table.
-         */
-        template <class HashedObj>
-        void QuadraticHashTable<HashedObj>::rehash( )
-        {
-            vector<HashEntry> oldArray = array;
-
-                // Create new double-sized, empty table
-            array.resize( nextPrime( 2 * oldArray.size( ) ) );
-            for( int j = 0; j < array.size( ); j++ )
-                array[ j ].info = EMPTY;
-
-                // Copy table over
-            currentSize = 0;
-            for( int i = 0; i < oldArray.size( ); i++ )
-                if( oldArray[ i ].info == ACTIVE )
-                    insert( oldArray[ i ].element );
-        }
+	}
 
         /**
          * Method that performs quadratic probing resolution.
