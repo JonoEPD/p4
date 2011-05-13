@@ -125,17 +125,7 @@ int QuadraticHashTable<HashedObj>::findObject(const char * x, int birthYear) con
     }
   return -1; //bad find
 }
-        /**
-         * Remove item x from the hash table.
-         */
-        template <class HashedObj>
-        void QuadraticHashTable<HashedObj>::remove( const HashedObj & x )
-        {
-            int currentPos = findPos( x );
-            if( isActive( currentPos ) )
-                array[ currentPos ].info = DELETED;
-        }
-
+      
         /**
          * Find item x in the hash table.
          * Return the matching item, or ITEM_NOT_FOUND, if not found.
@@ -191,7 +181,7 @@ int QuadraticHashTable<HashedObj>::findObject(const char * x, int birthYear) con
         {
 	  int hashVal = birthYear;
 
-            for( int i = 0; i < 9; i++ ) //n_max arbitrary
+            for( int i = 0; i < 10; i++ ) //n_max arbitrary
                 hashVal = 37 * hashVal + x[i];
 
             hashVal %= tableSize;
@@ -199,15 +189,4 @@ int QuadraticHashTable<HashedObj>::findObject(const char * x, int birthYear) con
                 hashVal += tableSize;
 
             return hashVal;
-        }
-
-
-        /**
-         * A hash routine for ints.
-         */
-         template <class HashedObj>
-        int QuadraticHashTable<HashedObj>::hash( int key, int tableSize ) const
-        {
-            if( key < 0 ) key = -key;
-            return key % tableSize;
         }

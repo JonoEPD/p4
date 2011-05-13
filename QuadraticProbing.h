@@ -2,7 +2,6 @@
         #define _QUADRATIC_PROBING_H_
 
         #include "vector.h"
-        #include "mystring.h"
 
         // QuadraticProbing Hash table class
         //
@@ -30,7 +29,6 @@
 
             void makeEmpty( );
             void insert( const HashedObj & x );
-            void remove( const HashedObj & x );
 
             const QuadraticHashTable & operator=( const QuadraticHashTable & rhs );
 
@@ -52,7 +50,6 @@
             int findPos( const char *, int birthYear ) const;
 	    int findObject( const char *, int birthYear ) const;
             int hash( const char *, int birthYear, int tableSize ) const;
-            int hash( int key, int tableSize ) const;
             void rehash( );
         };
 
