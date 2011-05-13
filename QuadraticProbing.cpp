@@ -95,9 +95,7 @@
 /* 1*/      int collisionNum = 0;
 	  /* 2*/      int currentPos = hash( x, birthYear, array.size( ) );
 
-/* 3*/      while( array[ currentPos ].info != EMPTY &&
-                   array[ currentPos ].element->name != x && 
-		   array[ currentPos ].element->birthYear != birthYear)
+/* 3*/      while( array[ currentPos ].info != EMPTY)
             {
 /* 4*/          currentPos += 2 * ++collisionNum - 1;  // Compute ith probe
 /* 5*/          if( currentPos >= array.size( ) )
@@ -107,7 +105,26 @@
 /* 7*/      return currentPos;
         }
 
+template <class HashedObj>
+int QuadraticHashTable<HashedObj>::findObject(const char * x, int birthYear) const
+{
+  int collisionNum = 0;
+  int currentPos = hash(x, birthYear, array.size( ) );
+  
+  while(array[currentPos].info != EMPTY) //1 = empty
+    {
+      HashedObj tmp = array[currentPos].element;
+      if(!strncmp(tmp->name,x,100) && tmp->birthYear == birthYear) //object exists, so no empty check
+	return currentPos; //good find
 
+      currentPos += 2 * ++collisionNum - 1;
+
+      if( currentPos >= array.size() )
+	currentPos -= array.size();
+	
+    }
+  return -1; //bad find
+}
         /**
          * Remove item x from the hash table.
          */
@@ -172,7 +189,7 @@
         template <class HashedObj>
         int QuadraticHashTable<HashedObj>::hash( const char * x, int birthYear, int tableSize ) const
         {
-	  int hashVal = hash(birthYear, tableSize);
+	  int hashVal = birthYear;
 
             for( int i = 0; i < 9; i++ ) //n_max arbitrary
                 hashVal = 37 * hashVal + x[i];

@@ -33,7 +33,7 @@ void Royals::insertDriver(const Person *people, const Person *parent, int &i, in
   Royal * r_parent = NULL;
   if(parent != NULL)
     {
-      r_parent = hashTable.array[hashTable.findPos(parent->name,parent->birthYear)].element;
+      r_parent = hashTable.array[hashTable.findObject(parent->name,parent->birthYear)].element;
     }
   Person root = people[i]; //root to recurse from
   bool quit = 0;
@@ -47,10 +47,10 @@ void Royals::insertDriver(const Person *people, const Person *parent, int &i, in
 	}
       else if(length_i >= length_r) //siblings or equal root
 	{	  
-	  if(hashTable.array[hashTable.findPos(people[i].name,people[i].birthYear)].info == 1) //not duplicate (EMPTY == 1)
+	  if(hashTable.findObject(people[i].name,people[i].birthYear) == -1) //not found
 	    {
 	      hashTable.insert(new Royal(people[i]));
-	      Royal * child = hashTable.array[hashTable.findPos(people[i].name,people[i].birthYear)].element;
+	      Royal * child = hashTable.array[hashTable.findObject(people[i].name,people[i].birthYear)].element;
 	      if(r_parent != NULL) //if not root
 		{
 		  r_parent->children[r_parent->n_child] = child;
@@ -61,7 +61,7 @@ void Royals::insertDriver(const Person *people, const Person *parent, int &i, in
 	    }
 	  else //parents > 0
 	    {
-	      Royal * child = hashTable.array[hashTable.findPos(people[i].name,people[i].birthYear)].element;
+	      Royal * child = hashTable.array[hashTable.findObject(people[i].name,people[i].birthYear)].element;
 	      if((child->parents[0] != r_parent) && (child->n_parent != 2)) //not duplicate
 		{
 		  r_parent->children[r_parent->n_child] = child;
@@ -90,7 +90,7 @@ void Royals::getAncestor(const char *descendentName1, int descendentBirthYear1,
 
 int Royals::getChildren(const char *name, int birthYear)
 {
-  int tmp = hashTable.findPos(name, birthYear);
+  int tmp = hashTable.findObject(name, birthYear);
   return hashTable.array[tmp].element->n_child;
 } // getSiblings()
 
@@ -98,7 +98,7 @@ int Royals::getChildren(const char *name, int birthYear)
 void Royals::getDescendent(const char *ancestorName, int ancestorBirthYear,
     const char **descendentName, int *descendentBirthYear)
 {
-  int pos = hashTable.findPos(ancestorName,ancestorBirthYear);
+  int pos = hashTable.findObject(ancestorName,ancestorBirthYear);
   Royal * a = hashTable.array[pos].element; 
   int n_c = a->n_child;
   if(n_c == 0) //no more descendents
@@ -122,7 +122,7 @@ void Royals::getDescendent(const char *ancestorName, int ancestorBirthYear,
 
 int Royals::getMarriages(const char *name, int birthYear)
 {
-  int tmp = hashTable.findPos(name, birthYear); //no idea why +1
+  int tmp = hashTable.findObject(name, birthYear); //no idea why +1
   return hashTable.array[tmp].element->spouseCount;
 } // getSiblings()
 
@@ -130,7 +130,7 @@ int Royals::getMarriages(const char *name, int birthYear)
 int Royals::getSiblings(const char *name, int birthYear)
 {
   //siblings ordered by bday
-  int pos = hashTable.findPos(name, birthYear);
+  int pos = hashTable.findObject(name, birthYear);
   Royal * c = hashTable.array[pos].element;
 
   if(c->n_parent == 0) //root monarch

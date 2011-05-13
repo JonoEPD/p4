@@ -50,6 +50,7 @@
             int nextPrime( int n ) const;
             bool isActive( int currentPos ) const;
             int findPos( const char *, int birthYear ) const;
+	    int findObject( const char *, int birthYear ) const;
             int hash( const char *, int birthYear, int tableSize ) const;
             int hash( int key, int tableSize ) const;
             void rehash( );
