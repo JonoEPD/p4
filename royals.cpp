@@ -10,7 +10,8 @@ using namespace std;
 
 Royal::Royal()
 {
-  name[0] = '\0'; //null string
+  name[0] = '\0';
+  birthYear = 0;
 }
 
 Royal::Royal(const Person &x)
@@ -98,27 +99,37 @@ int Royals::getChildren(const char *name, int birthYear)
 void Royals::getDescendent(const char *ancestorName, int ancestorBirthYear,
     const char **descendentName, int *descendentBirthYear)
 {
-  int pos = hashTable.findObject(ancestorName,ancestorBirthYear);
-  Royal * a = hashTable.array[pos].element; 
+  int pos_a = hashTable.findObject(ancestorName,ancestorBirthYear);
+  Royal * a = hashTable.array[pos_a].element;
   int n_c = a->n_child;
-  if(n_c == 0) //no more descendents
-    {
-      	  if(*descendentBirthYear < a->birthYear || *descendentBirthYear == 0)
-	    {
-	      *descendentBirthYear = a->birthYear;
-	      *descendentName = a->name;
-	    }
-    }
-  else//more descendents
-    {
-      for(int i = 0; i < n_c; i++)
-	{
-	  getDescendent(a->children[i]->name,a->children[i]->birthYear,descendentName,descendentBirthYear);
-	}
-    }
+  *descendentBirthYear = 0; //zero out
   
+  for(int i = 0; i < n_c; i++) // we always have descendents
+    {
+      getDescendentDriver(a->children[i],descendentName,descendentBirthYear);
+    }
+   
 } //getDescedent()
 
+void Royals::getDescendentDriver(Royal * ancestor, const char ** descendentName, int * descendentBirthYear)
+{
+  int n_c = ancestor->n_child;
+  if(n_c == 0)
+    {
+      if(ancestor->birthYear > *descendentBirthYear)
+	{
+	  *descendentName = ancestor->name;
+	  *descendentBirthYear = ancestor->birthYear;
+	}
+    }
+  else
+    {
+      for(int i = 0; i < n_c; i++) // more descendents to check
+	{
+	  getDescendentDriver(ancestor->children[i],descendentName,descendentBirthYear);
+	}
+    }
+}
 
 int Royals::getMarriages(const char *name, int birthYear)
 {

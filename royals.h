@@ -31,6 +31,7 @@ public:
   int getChildren(const char*name, int birthYear);
   void getDescendent(const char *ancestorName, int ancestorBirthYear,
     const char **descendentName, int *descendentBirthYear);
+  void getDescendentDriver(Royal * a, const char ** name, int * birthYear);
   int getMarriages(const char*name, int birthYear);
   int getSiblings(const char*name, int birthYear);
 };
