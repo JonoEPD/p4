@@ -56,7 +56,7 @@
         {
                 // Insert x as active
 	  int currentPos = findPos( x->name , x->birthYear );
-	  if( isActive( currentPos ) )
+	  if( array[ currentPos ].info == ACTIVE )
 	    return;
 	  array[ currentPos ] = HashEntry( x, ACTIVE );
 	  
@@ -134,7 +134,7 @@ int QuadraticHashTable<HashedObj>::findObject(const char * x, int birthYear) con
         const HashedObj & QuadraticHashTable<HashedObj>::find( const HashedObj & x ) const
         {
 	  int currentPos = findPos( x->name , x->birthYear);
-            return isActive( currentPos ) ? array[ currentPos ].element : NULL;
+	  return (array[ currentPos ].info == ACTIVE) ? array[ currentPos ].element : NULL;
         }
 
         /**
@@ -161,16 +161,6 @@ int QuadraticHashTable<HashedObj>::findObject(const char * x, int birthYear) con
                 currentSize = rhs.currentSize;
             }
             return *this;
-        }
-
-
-        /**
-         * Return true if currentPos exists and is active.
-         */
-        template <class HashedObj>
-        bool QuadraticHashTable<HashedObj>::isActive( int currentPos ) const
-        {
-            return array[ currentPos ].info == ACTIVE;
         }
 
         /**

@@ -46,7 +46,6 @@
             int currentSize;
             bool isPrime( int n ) const;
             int nextPrime( int n ) const;
-            bool isActive( int currentPos ) const;
             int findPos( const char *, int birthYear ) const;
 	    int findObject( const char *, int birthYear ) const;
             int hash( const char *, int birthYear, int tableSize ) const;
