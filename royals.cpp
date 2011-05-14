@@ -90,57 +90,60 @@ void Royals::getAncestor(const char *descendentName1, int descendentBirthYear1,
   Royal * d1 = hashTable.array[pos_d1].element;
   int pos_d2 = hashTable.findObject(descendentName2,descendentBirthYear2);
   Royal * d2 = hashTable.array[pos_d2].element;
-  BinaryHeap<Royal *> pqueue1; //priority queue of ancestors
-  BinaryHeap<Royal *> pqueue2; 
-  getAncestorDriver(d1,&pqueue1,1);
-  getAncestorDriver(d2,&pqueue2,1);
+  vector<Royal *> list1(100); //priority queue of ancestors
+  vector<Royal *> list2(100);
+  int i1 = 0, i2 = 0;
+  getAncestorDriver(d1,&list1,i1,1);
+  getAncestorDriver(d2,&list2,i2,1);
+  list1.quicksort(list1,0,i1-1);
+  list2.quicksort(list2,0,i2-1);
   *ancestorBirthYear = 0;
 
-  while(!pqueue1.isEmpty() && !pqueue2.isEmpty())
+  int m1 = 0, m2 = 0;
+  while((m1 != i1) && (m2 != i2))
     {
-      Royal *p1 = pqueue1.findMin();
-      Royal *p2 = pqueue2.findMin();
-      if((p1==p2)) //same royal
+      Royal * tmp1 = list1[m1];
+      Royal * tmp2 = list2[m2];
+
+      if(tmp1 == tmp2)
 	{
-	  if(p1->birthYear > *ancestorBirthYear)
+	  if(tmp1->birthYear > *ancestorBirthYear)
 	    {
-	      *ancestorBirthYear = p1->birthYear;
-	      *ancestorName = p1->name;
+	      *ancestorBirthYear = tmp1->birthYear;
+	      *ancestorName = tmp1->name;
 	    }
-	  pqueue1.deleteMin();
-	  pqueue2.deleteMin();
+
+	  m1++;
+	  m2++;
 	}
-      else if(p1 < p2)
+      else if(tmp1 < tmp2)
 	{
-	  pqueue1.deleteMin(); //older
-	}
-      else if(p1 > p2)
-	{
-	  pqueue2.deleteMin();
+	  m1++;
 	}
       else
 	{
-	  //pqueue1.deleteMin();
-	  //pqueue1.insert(p1);
-	  pqueue2.deleteMin();
+	  m2++;
 	}
     }
-  
+
 } // getAncestor()
 
-void Royals::getAncestorDriver(Royal * d, BinaryHeap<Royal *> * pqueue, bool first)
+void Royals::getAncestorDriver(Royal * d, vector<Royal *> * list, int & index, bool first)
 {
   if(d->n_parent == 2)
     {
-      getAncestorDriver(d->parents[0],pqueue,0);
-      getAncestorDriver(d->parents[1],pqueue,0);
+      getAncestorDriver(d->parents[0],list,index,0);
+      getAncestorDriver(d->parents[1],list,index,0);
     }
   else if(d->n_parent == 1)
     {
-      getAncestorDriver(d->parents[0],pqueue,0);
+      getAncestorDriver(d->parents[0],list,index,0);
     }
   if(first != 1) //don't insert yourself
-    (*pqueue).insert(d);
+    {
+      (*list)[index]=d;
+      index++;
+    }
 }
 
 int Royals::getChildren(const char *name, int birthYear)

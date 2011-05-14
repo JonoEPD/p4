@@ -20,8 +20,8 @@ class vector
     ~vector( )
       { delete [ ] objects; }
 
-    void quicksort(vector<Object> &a, int left, int right);
-    void insertionSort(vector<Object> &a, int left, int right);
+    void quicksort(vector<Object> & a, int left, int right);
+    void insertionSort(vector<Object> & a, int left, int right);
 
     int size( ) const
       { return currentSize; }

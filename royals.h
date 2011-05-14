@@ -29,7 +29,7 @@ public:
   void getAncestor(const char *descendentName1, int descendentBirthYear1,
     const char *descendentName2, int descendentBirthYear2,
     const char **ancestorName, int *ancestorBirthYear);
-  void getAncestorDriver(Royal * d, BinaryHeap<Royal *> * pqueue, bool first);
+  void getAncestorDriver(Royal * d, vector<Royal *> * pqueue, int &, bool first);
   int getChildren(const char*name, int birthYear);
   void getDescendent(const char *ancestorName, int ancestorBirthYear,
     const char **descendentName, int *descendentBirthYear);

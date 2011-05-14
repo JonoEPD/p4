@@ -4,12 +4,21 @@
 #include "vector.h"
 
 /* Weiss quicksort (pg 286) */
-template <typename Comparable>
-void quicksort(vector<Comparable> & a, int left, int right )
+template <typename Object>
+void vector<Object>::quicksort(vector<Object> & a, int left, int right )
 {
   if(left + 10 <= right )
     {
-      Comparable pivot = median3(a, left, right );
+      int center = (left + right) / 2;
+      if(a[center] < a[left])
+	swap(a[left],a[center]);
+      if(a[right] < a[left])
+	swap(a[left],a[right]);
+      if(a[right] < a[center])
+	swap(a[center],a[right]);
+      
+      swap(a[center],a[right-1]);
+      Object pivot = a[right-1];
 
       int i = left, j = right - 1;
       for( ;; )
@@ -32,14 +41,14 @@ void quicksort(vector<Comparable> & a, int left, int right )
 }
 
 /* Weiss insertionSort * (pg 282) */
-template <typename Comparable>
-void insertionSort(vector<Comparable> a, int left, int right)
+template <typename Object>
+void vector<Object>::insertionSort(vector<Object> &a, int left, int right)
 {
   int j;
 
   for(int p = left; p <= right; p++)
     {
-      Comparable tmp = a[p];
+      Object tmp = a[p];
       for( j = p; j > 0 && tmp < a[ j - 1]; j--)
 	a[ j ] = a[ j-1 ];
       a[ j ] = tmp;
