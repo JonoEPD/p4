@@ -92,8 +92,8 @@ void Royals::getAncestor(const char *descendentName1, int descendentBirthYear1,
   Royal * d2 = hashTable.array[pos_d2].element;
   BinaryHeap<Royal *> pqueue1; //priority queue of ancestors
   BinaryHeap<Royal *> pqueue2; 
-  getAncestorDriver(d1,&pqueue1);
-  getAncestorDriver(d2,&pqueue2);
+  getAncestorDriver(d1,&pqueue1,1);
+  getAncestorDriver(d2,&pqueue2,1);
   *ancestorBirthYear = 0;
 
   while(!pqueue1.isEmpty() && !pqueue2.isEmpty())
@@ -122,18 +122,19 @@ void Royals::getAncestor(const char *descendentName1, int descendentBirthYear1,
   
 } // getAncestor()
 
-void Royals::getAncestorDriver(Royal * d, BinaryHeap<Royal *> * pqueue)
+void Royals::getAncestorDriver(Royal * d, BinaryHeap<Royal *> * pqueue, bool first)
 {
   if(d->n_parent == 2)
     {
-      getAncestorDriver(d->parents[0],pqueue);
-      getAncestorDriver(d->parents[1],pqueue);
+      getAncestorDriver(d->parents[0],pqueue,0);
+      getAncestorDriver(d->parents[1],pqueue,0);
     }
   else if(d->n_parent == 1)
     {
-      getAncestorDriver(d->parents[0],pqueue);
+      getAncestorDriver(d->parents[0],pqueue,0);
     }
-  (*pqueue).insert(d);
+  if(first != 1) //don't insert yourself
+    (*pqueue).insert(d);
 }
 
 int Royals::getChildren(const char *name, int birthYear)
