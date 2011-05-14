@@ -43,9 +43,9 @@
          */
         template <class Comparable>
         void BinaryHeap<Comparable>::deleteMin( )
-        {
-            if( isEmpty( ) )
-                throw Underflow( );
+        {	  
+	  if( isEmpty( ) )
+	    throw Underflow( );
 
             array[ 1 ] = array[ currentSize-- ];
             percolateDown( 1 );
