@@ -1,10 +1,10 @@
 runRoyals.out:  royals.o RunRoyals.o
 	g++ -Wall -ansi -g -o runRoyals.out royals.o RunRoyals.o 
 
-royals.o: royals.cpp royals.h RunRoyals.h QuadraticProbing.h QuadraticProbing.cpp BinaryHeap.h BinaryHeap.cpp
+royals.o: royals.cpp royals.h RunRoyals.h QuadraticProbing.h QuadraticProbing.cpp vector.h vector.cpp
 	g++ -Wall -ansi -g -c royals.cpp 
 
-RunRoyals.o: RunRoyals.cpp RunRoyals.h royals.h CPUTimer.h QuadraticProbing.h QuadraticProbing.cpp BinaryHeap.h BinaryHeap.cpp
+RunRoyals.o: RunRoyals.cpp RunRoyals.h royals.h CPUTimer.h QuadraticProbing.h QuadraticProbing.cpp vector.h vector.cpp
 	g++ -Wall -ansi -g -c RunRoyals.cpp 
 
 clean:

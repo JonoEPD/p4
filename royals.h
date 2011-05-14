@@ -4,7 +4,6 @@
 #define	ROYALS_H
 #include "RunRoyals.h"
 #include "QuadraticProbing.h"
-#include "BinaryHeap.h"
 
 using namespace std;
 

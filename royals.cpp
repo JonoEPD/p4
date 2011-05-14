@@ -4,8 +4,6 @@
 #include "RunRoyals.h"
 #include "QuadraticProbing.h"
 #include <cstring>
-#include "BinaryHeap.h"
-#include <iostream>
 
 using namespace std;
 
