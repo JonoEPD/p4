@@ -110,7 +110,7 @@ void Royals::getAncestor(const char *descendentName1, int descendentBirthYear1,
 	  pqueue1.deleteMin();
 	  pqueue2.deleteMin();
 	}
-      else if(p1->birthYear > p2->birthYear)
+      else if(p1->birthYear < p2->birthYear)
 	{
 	  pqueue1.deleteMin(); //older
 	}
