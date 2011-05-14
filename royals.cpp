@@ -100,7 +100,7 @@ void Royals::getAncestor(const char *descendentName1, int descendentBirthYear1,
     {
       Royal *p1 = pqueue1.findMin();
       Royal *p2 = pqueue2.findMin();
-      if((p1->birthYear == p2->birthYear) && (p1->name == p2->name)) //same royal
+      if((p1==p2)) //same royal
 	{
 	  if(p1->birthYear > *ancestorBirthYear)
 	    {
@@ -110,12 +110,18 @@ void Royals::getAncestor(const char *descendentName1, int descendentBirthYear1,
 	  pqueue1.deleteMin();
 	  pqueue2.deleteMin();
 	}
-      else if(p1->birthYear < p2->birthYear)
+      else if(p1 < p2)
 	{
 	  pqueue1.deleteMin(); //older
 	}
-      else 
+      else if(p1 > p2)
 	{
+	  pqueue2.deleteMin();
+	}
+      else
+	{
+	  //pqueue1.deleteMin();
+	  //pqueue1.insert(p1);
 	  pqueue2.deleteMin();
 	}
     }

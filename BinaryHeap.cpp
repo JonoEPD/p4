@@ -23,7 +23,7 @@
 
                 // Percolate up
             int hole = ++currentSize;
-            for( ; hole > 1 && x->birthYear < array[ hole / 2 ]->birthYear; hole /= 2 )
+            for( ; hole > 1 && x < array[ hole / 2 ]; hole /= 2 )
                 array[ hole ] = array[ hole / 2 ];
             array[ hole ] = x;
         }
@@ -122,9 +122,9 @@
 /* 3*/      for( ; hole * 2 <= currentSize; hole = child )
             {
 /* 4*/          child = hole * 2;
-/* 5*/          if( child != currentSize && array[ child + 1 ]->birthYear < array[ child ]->birthYear )
+/* 5*/          if( child != currentSize && array[ child + 1 ] < array[ child ] )
 /* 6*/              child++;
-/* 7*/          if( array[ child ]->birthYear < tmp->birthYear )
+/* 7*/          if( array[ child ] < tmp )
 /* 8*/              array[ hole ] = array[ child ];
                 else
 /* 9*/              break;
