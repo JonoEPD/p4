@@ -1,0 +1,21 @@
+15 20
+a,2003,Lucia Moreno y Calvo,1937,Princess Teresa of Bourbon,1901,Infant Alfonso of Spain
+c,1857,Alfonso XII,1
+c,1996,Teresa Urquijo y Moreno,0
+a,1880,Infanta Mara de las Mercedes of Spain,1962,Rodrigo Moreno y de Borbn,1857,Alfonso XII
+a,1962,Rodrigo Moreno y de Borbn,1937,Princess Teresa of Bourbon,1901,Infant Alfonso of Spain
+a,2000,Inigo Hernndez y Moreno,2000,Alejandra Hernndez y Moreno,1964,Alicia Moreno y de Borbn
+d,1880,Infanta Mara de las Mercedes of Spain,2003,Lucia Moreno y Calvo
+d,1937,Princess Teresa of Bourbon,2003,Lucia Moreno y Calvo
+d,1901,Infant Alfonso of Spain,2003,Lucia Moreno y Calvo
+d,1901,Infant Alfonso of Spain,2003,Lucia Moreno y Calvo
+a,1999,Juan Urquijo y Moreno,1962,Rodrigo Moreno y de Borbn,1937,Princess Teresa of Bourbon
+d,1880,Infanta Mara de las Mercedes of Spain,2003,Lucia Moreno y Calvo
+d,1967,Beatriz Moreno y de Borbn,1999,Juan Urquijo y Moreno
+m,2003,Lucia Moreno y Calvo,0
+a,2003,Lucia Moreno y Calvo,1937,Princess Teresa of Bourbon,1901,Infant Alfonso of Spain
+d,1965,Alfonso Moreno y de Borbn,2003,Lucia Moreno y Calvo
+s,2000,Inigo Hernndez y Moreno,1
+a,2000,Inigo Hernndez y Moreno,2000,Alejandra Hernndez y Moreno,1964,Alicia Moreno y de Borbn
+s,1901,Infant Alfonso of Spain,0
+s,1969,Fernando Moreno y de Borbn,4
