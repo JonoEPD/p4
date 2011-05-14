@@ -18,9 +18,6 @@
         template <class Comparable>
         void BinaryHeap<Comparable>::insert( const Comparable & x )
         {
-            if( isFull( ) )
-                throw Overflow( );
-
                 // Percolate up
             int hole = ++currentSize;
             for( ; hole > 1 && x < array[ hole / 2 ]; hole /= 2 )
@@ -61,9 +58,6 @@
         template <class Comparable>
         void BinaryHeap<Comparable>::deleteMin( Comparable & minItem )
         {
-            if( isEmpty( ) )
-                throw Underflow( );
-
             minItem = array[ 1 ];
             array[ 1 ] = array[ currentSize-- ];
             percolateDown( 1 );
@@ -90,15 +84,7 @@
             return currentSize == 0;
         }
 
-        /**
-         * Test if the priority queue is logically full.
-         * Return true if full, false otherwise.
-         */
-        template <class Comparable>
-        bool BinaryHeap<Comparable>::isFull( ) const
-        {
-            return currentSize == array.size( ) - 1;
-        }
+      
 
         /**
          * Make the priority queue logically empty.

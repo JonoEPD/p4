@@ -101,7 +101,7 @@ int main(int argc, char** argv)
   Person *people;
   Question *questions;
   CPUTimer ct;
-
+  
   readFiles(argv[1], &people, &questions, &questionCount, &numPeople);
   ct.reset();
   Royals *royals =  new Royals(people, numPeople);

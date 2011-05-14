@@ -23,10 +23,9 @@
         class BinaryHeap
         {
           public:
-            explicit BinaryHeap( int capacity = 100 );
+	  explicit BinaryHeap( int capacity = 75 ); //74 = ancestor max
 
             bool isEmpty( ) const;
-            bool isFull( ) const;
             const Comparable & findMin( ) const;
 
             void insert( const Comparable & x );
