@@ -20,6 +20,9 @@ class vector
     ~vector( )
       { delete [ ] objects; }
 
+    void quicksort(vector<Object> &a, int left, int right);
+    void insertionSort(vector<Object> &a, int left, int right);
+
     int size( ) const
       { return currentSize; }
 
@@ -32,7 +35,6 @@ class vector
     {
         return objects[ index ];
     }
-
 
     const vector & operator = ( const vector & rhs );
     void resize( int newSize );
