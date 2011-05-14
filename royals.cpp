@@ -2,9 +2,10 @@
 
 #include "royals.h"
 #include "RunRoyals.h"
-#include <iostream>
 #include "QuadraticProbing.h"
 #include <cstring>
+#include "BinaryHeap.h"
+#include <iostream>
 
 using namespace std;
 
@@ -85,9 +86,55 @@ void Royals::getAncestor(const char *descendentName1, int descendentBirthYear1,
     const char *descendentName2, int descendentBirthYear2,
     const char **ancestorName, int *ancestorBirthYear)
 {
+  int pos_d1 = hashTable.findObject(descendentName1,descendentBirthYear1);
+  Royal * d1 = hashTable.array[pos_d1].element;
+  int pos_d2 = hashTable.findObject(descendentName2,descendentBirthYear2);
+  Royal * d2 = hashTable.array[pos_d2].element;
+  BinaryHeap<Royal *> pqueue1; //priority queue of ancestors
+  BinaryHeap<Royal *> pqueue2; 
+  getAncestorDriver(d1,&pqueue1);
+  getAncestorDriver(d2,&pqueue2);
+  *ancestorBirthYear = 0;
+
+  while(!pqueue1.isEmpty() && !pqueue2.isEmpty())
+    {
+      Royal *p1 = pqueue1.findMin();
+      Royal *p2 = pqueue2.findMin();
+      if((p1->birthYear == p2->birthYear) && (p1->name == p2->name)) //same royal
+	{
+	  if(p1->birthYear > *ancestorBirthYear)
+	    {
+	      *ancestorBirthYear = p1->birthYear;
+	      *ancestorName = p1->name;
+	    }
+	  pqueue1.deleteMin();
+	  pqueue2.deleteMin();
+	}
+      else if(p1->birthYear > p2->birthYear)
+	{
+	  pqueue1.deleteMin(); //older
+	}
+      else 
+	{
+	  pqueue2.deleteMin();
+	}
+    }
   
 } // getAncestor()
 
+void Royals::getAncestorDriver(Royal * d, BinaryHeap<Royal *> * pqueue)
+{
+  if(d->n_parent == 2)
+    {
+      getAncestorDriver(d->parents[0],pqueue);
+      getAncestorDriver(d->parents[1],pqueue);
+    }
+  else if(d->n_parent == 1)
+    {
+      getAncestorDriver(d->parents[0],pqueue);
+    }
+  (*pqueue).insert(d);
+}
 
 int Royals::getChildren(const char *name, int birthYear)
 {

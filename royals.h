@@ -4,6 +4,7 @@
 #define	ROYALS_H
 #include "RunRoyals.h"
 #include "QuadraticProbing.h"
+#include "BinaryHeap.h"
 
 using namespace std;
 
@@ -28,6 +29,7 @@ public:
   void getAncestor(const char *descendentName1, int descendentBirthYear1,
     const char *descendentName2, int descendentBirthYear2,
     const char **ancestorName, int *ancestorBirthYear);
+  void getAncestorDriver(Royal * d, BinaryHeap<Royal *> * pqueue);
   int getChildren(const char*name, int birthYear);
   void getDescendent(const char *ancestorName, int ancestorBirthYear,
     const char **descendentName, int *descendentBirthYear);
