@@ -9,8 +9,6 @@
 #define vector Vector
 #include <cstddef>
 
-class ArrayIndexOutOfBounds { };
-
 template <class Object>
 class vector
 {
@@ -27,19 +25,11 @@ class vector
 
     Object & operator[]( int index )
     {
-                                                     #ifndef NO_CHECK
-        if( index < 0 || index >= currentSize )
-            throw ArrayIndexOutOfBounds( );
-                                                     #endif
         return objects[ index ];
     }
 
     const Object & operator[]( int index ) const
     {
-                                                     #ifndef NO_CHECK
-        if( index < 0 || index >= currentSize )
-            throw ArrayIndexOutOfBounds( );
-                                                     #endif
         return objects[ index ];
     }
 
