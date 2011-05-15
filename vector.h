@@ -13,15 +13,12 @@ template <class Object>
 class vector
 {
   public:
-    explicit vector( int theSize = 0 ) : currentSize( theSize )
+    explicit vector( int theSize = 100 ) : currentSize( theSize )
       { objects = new Object[ currentSize ]; }
     vector( const vector & rhs ) : objects( NULL )
       { operator=( rhs ); }
     ~vector( )
       { delete [ ] objects; }
-
-    void quicksort(vector<Object> & a, int left, int right);
-    void insertionSort(vector<Object> & a, int left, int right);
 
     int size( ) const
       { return currentSize; }

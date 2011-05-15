@@ -4,8 +4,61 @@
 #include "RunRoyals.h"
 #include "QuadraticProbing.h"
 #include <cstring>
+#include <iostream>
 
 using namespace std;
+
+/* Weiss quicksort (pg 286) */
+template <typename Object>
+void quicksort(vector<Object> & a, int left, int right )
+{
+  if(left + 10 <= right )
+    {
+      int center = (left + right) / 2;
+      if(a[center] < a[left])
+	swap(a[left],a[center]);
+      if(a[right] < a[left])
+	swap(a[left],a[right]);
+      if(a[right] < a[center])
+	swap(a[center],a[right]);
+      
+      swap(a[center],a[right-1]);
+      Object pivot = a[right-1];
+
+      int i = left, j = right - 1;
+      for( ;; )
+	{
+	  while(a[++i] < pivot ) { }
+	  while(pivot < a[--j] ) { }
+	  if(i < j)
+	    swap( a[i], a[j] );
+	  else
+	    break;
+	}
+      
+      swap( a[i], a[ right - 1] ); //Restore pivot
+      
+      quicksort( a, left, i - 1 ); //Sort small elements
+      quicksort( a, i + 1, right ); //Sort large elements
+    }
+  else 
+    insertionSort( a, left, right );
+}
+
+/* Weiss insertionSort * (pg 282) */
+template <typename Object>
+void insertionSort(vector<Object> &a, int left, int right)
+{
+  int j;
+
+  for(int p = left; p <= right; p++)
+    {
+      Object tmp = a[p];
+      for( j = p; j > 0 && tmp < a[ j - 1]; j--)
+	a[ j ] = a[ j-1 ];
+      a[ j ] = tmp;
+    }
+}
 
 Royal::Royal()
 {
@@ -20,6 +73,7 @@ Royal::Royal(const Person &x)
   spouseCount = x.spouseCount;
   n_child = 0;
   n_parent = 0;
+  n_ancest = -1;
 }
 
 Royals::Royals(const Person *people, int count) : hashTable(count*2)
@@ -88,20 +142,33 @@ void Royals::getAncestor(const char *descendentName1, int descendentBirthYear1,
   Royal * d1 = hashTable.array[pos_d1].element;
   int pos_d2 = hashTable.findObject(descendentName2,descendentBirthYear2);
   Royal * d2 = hashTable.array[pos_d2].element;
-  vector<Royal *> list1(100); //priority queue of ancestors
-  vector<Royal *> list2(100);
+  //vector<Royal *> list1; //list of ancestors
+  //vector<Royal *> list2;
   int i1 = 0, i2 = 0;
-  getAncestorDriver(d1,&list1,i1,1);
-  getAncestorDriver(d2,&list2,i2,1);
-  list1.quicksort(list1,0,i1-1);
-  list2.quicksort(list2,0,i2-1);
-  *ancestorBirthYear = 0;
+  if(d1->n_ancest == -1) //not instalized
+    {
+      getAncestorDriver(d1,&d1->ancestors,i1,1);
+      quicksort(d1->ancestors,0,i1-1);
+      d1->n_ancest = i1;
+    }
+  else 
+    i1 = d1->n_ancest;
+  if(d2->n_ancest == -1)
+    {
+      getAncestorDriver(d2,&d2->ancestors,i2,1);
+      quicksort(d2->ancestors,0,i2-1);
+      d2->n_ancest = i2;
+    }
+  else
+    i2 = d2->n_ancest;
 
+  *ancestorBirthYear = 0;
+ 
   int m1 = 0, m2 = 0;
   while((m1 != i1) && (m2 != i2))
     {
-      Royal * tmp1 = list1[m1];
-      Royal * tmp2 = list2[m2];
+      Royal * tmp1 = d1->ancestors[m1];
+      Royal * tmp2 = d2->ancestors[m2];
 
       if(tmp1 == tmp2)
 	{
@@ -126,20 +193,20 @@ void Royals::getAncestor(const char *descendentName1, int descendentBirthYear1,
 
 } // getAncestor()
 
-void Royals::getAncestorDriver(Royal * d, vector<Royal *> * list, int & index, bool first)
+void Royals::getAncestorDriver(Royal * d, vector<Royal *> *a, int & index, bool first)
 {
   if(d->n_parent == 2)
     {
-      getAncestorDriver(d->parents[0],list,index,0);
-      getAncestorDriver(d->parents[1],list,index,0);
+      getAncestorDriver(d->parents[0],a,index,0);
+      getAncestorDriver(d->parents[1],a,index,0);
     }
   else if(d->n_parent == 1)
     {
-      getAncestorDriver(d->parents[0],list,index,0);
+      getAncestorDriver(d->parents[0],a,index,0);
     }
   if(first != 1) //don't insert yourself
     {
-      (*list)[index]=d;
+      (*a)[index]=d;
       index++;
     }
 }
